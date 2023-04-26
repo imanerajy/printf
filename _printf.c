@@ -1,45 +1,44 @@
-#include <stdarg.h>
 #include <unistd.h>
-
+#include "main.h"
+#include <stdarg.h>
+/**
+ * _printf - Write a function that gives output according to a format.
+ * @format: a string containing zero or more format specifiers
+ * Return: the number of characters printed
+ */
 int _printf(const char *format, ...)
 {
-    int printed_chars = 0;
-    va_list args;
+	int i, num = 0;
+	va_list args;
 
-    va_start(args, format);
-
-    while (*format != '\0') {
-        if (*format == '%') {
-            format++; /* advance to the conversion specifier */
-            if (*format == '\0') { /* unexpected end of format string */
-                va_end(args);
-                return -1;
-            }
-            if (*format == '%') { /* handle the %% case */
-                write(1, "%", 1);
-                printed_chars++;
-            } else if (*format == 'c') { /* handle the %c case */
-                char c = (char) va_arg(args, int);
-                write(1, &c, 1);
-                printed_chars++;
-            } else if (*format == 's') { /* handle the %s case */
-                char *s = va_arg(args, char *);
-                while (*s != '\0') {
-                    write(1, s, 1);
-                    s++;
-                    printed_chars++;
-                }
-            } else { /* handle unknown conversion specifiers */
-                va_end(args);
-                return -1;
-            }
-        } else { /* handle regular characters */
-            write(1, format, 1);
-            printed_chars++;
-        }
-        format++;
-    }
-
-    va_end(args);
-    return printed_chars;
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+	va_start(args, format);
+	for (i = 0; format && format[i] != '\0'; i++)
+	{
+		if (format[i] == '%')
+		{
+			i++;
+			if (format[i] == 'c' || format[i] == 's' || format[i] == 'd'
+					|| format[i] == 'i')
+				num += _allchar(args, format[i]);
+			else if (format[i] == '%')
+				num += _putchar('%');
+			else if (format[i] == 'b')
+				num += _binary(args);
+			else if ((format[i] == 'u') || (format[i] == 'x') || (format[i] == 'X')
+							|| (format[i] == 'o'))
+				num += _all(args, format[i]);
+			else
+			{
+				_putchar('%');
+				_putchar(format[i]);
+				num += 2;
+			}
+		}
+		else
+			num += _putchar(format[i]);
+	}
+	va_end(args);
+	return (num);
 }
