@@ -1,10 +1,12 @@
 #include "main.h"
 #include <stddef.h>
+
 /**
  * _octal - Converts an integer to an octal number.
  * @args: A variable argument list containing the integer to convert.
  * Return: The number of characters printed to stdout.
 **/
+
 int _octal(va_list args)
 {
 	unsigned int n = va_arg(args, unsigned int);

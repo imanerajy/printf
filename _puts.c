@@ -5,6 +5,7 @@
  * @str: string passed
  * Return: void
  */
+
 void _puts(char *str)
 {
 	int	i;

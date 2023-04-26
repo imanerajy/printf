@@ -1,11 +1,13 @@
 #include "main.h"
 #include <stddef.h>
 #include <stdlib.h>
+
 /**
  * _hexa - Converts an integer to a hexadecimal number.
  * @args: A variable argument list containing the integer to convert.
  * Return: The number of characters printed to stdout.
 **/
+
 int _hexa(va_list args)
 {
 	unsigned int n = va_arg(args, unsigned int);

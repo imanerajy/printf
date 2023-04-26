@@ -1,11 +1,13 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stddef.h>
+
 /**
  * _hexaup - Converts an integer to a hexadecimal characters are in uppercase.
  * @args: A variable argument list containing the integer to convert.
  * Return: The number of characters printed to stdout.
 **/
+
 int _hexaup(va_list args)
 {
 	unsigned int n = va_arg(args, unsigned int);
